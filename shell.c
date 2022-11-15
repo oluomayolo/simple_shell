@@ -61,16 +61,27 @@ int _exec(char **argv)
 {
 	int status;
 	pid_t pid;
-
-	
-
+	char cwd[60];
 
 	if ((strcmp(argv[0], "exit")) == 0)
 	{
 		exit(EXIT_SUCCESS);
 	}
 
+	if ((strcmp(argv[0], "cd")) == 0)
+	{
+		if (chdir(argv[1]) != 0)
+			write(1, ":( cd: missing argument\n", 25);
+	}
 
+	if ((strcmp(argv[0], "pwd")) == 0)
+	{
+		if (getcwd(cwd, sizeof(cwd)) == NULL)
+			perror(":( pwd error");
+		else
+			write(1, cwd, strlen(cwd));
+		write(1, "\n", 2);
+	}
 	pid = fork();
 
 	if (pid == 0)
@@ -104,10 +115,10 @@ int main(void)
 
 	while (true)
 	{
-		printf(":) ");
+		write(1, ":) ", 4);
 
 		cmd = _getline();
-		
+
 		tokens = tokenizer(cmd);
 
 		if (tokens[0] != NULL)
