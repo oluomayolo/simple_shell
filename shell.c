@@ -89,12 +89,10 @@ int _exec(char **argv)
 		execve(argv[0], argv, NULL);
 		exit(0);
 	}
-
 	else if (pid > 0)
 	{
 		waitpid(pid, &status, WUNTRACED);
 	}
-
 	else
 	{
 		perror(" Failed");
@@ -107,7 +105,6 @@ int _exec(char **argv)
  *
  * Return: zero on success
  */
-
 int main(void)
 {
 	char *cmd;
