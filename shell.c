@@ -63,18 +63,18 @@ int _exec(char **argv)
 	pid_t pid;
 	char cwd[60];
 
-	if ((strcmp(argv[0], "exit")) == 0)
+	if ((_strcmp(argv[0], "exit")) == 0)
 	{
 		exit(EXIT_SUCCESS);
 	}
 
-	if ((strcmp(argv[0], "cd")) == 0)
+	if ((_strcmp(argv[0], "cd")) == 0)
 	{
 		if (chdir(argv[1]) != 0)
 			write(1, ":( cd: missing argument\n", 25);
 	}
 
-	if ((strcmp(argv[0], "pwd")) == 0)
+	if ((_strcmp(argv[0], "pwd")) == 0)
 	{
 		if (getcwd(cwd, sizeof(cwd)) == NULL)
 			perror(":( pwd error");
